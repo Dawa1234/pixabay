@@ -11,7 +11,7 @@ class SearchApiRepository {
       {required String query, required String page}) async {
     try {
       final response = await _httpExecuter.fetchApiData(
-          path: UrlConst.SEARCH_IMAGE,
+          path: UrlConst.searchImage,
           query: {"q": query, "per_page": "20", "page": page});
       final responseBody = jsonDecode(response);
       final ImageData imageData = ImageData.fromJson(responseBody);

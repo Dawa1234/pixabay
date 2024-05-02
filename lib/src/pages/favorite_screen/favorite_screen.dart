@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pixabay/helper/back_button.dart';
 import 'package:pixabay/helper/bytes_converter.dart';
 import 'package:pixabay/src/bloc/favorite_cubit/favorite_cubit.dart';
 import 'package:pixabay/src/data/models/image_model.dart';
@@ -24,9 +23,26 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            leading: const AppBackButton(),
-            title: const Text("Favorite Images")),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(70),
+          child: AppBar(
+              leading: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () => Navigator.pop(context),
+                      child: Hero(
+                          tag: "floatingActionButton",
+                          child: CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.green.shade700,
+                              child: const Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                color: Colors.white,
+                                size: 20,
+                              ))))),
+              title: const Text("Favorite Images")),
+        ),
         body: BlocBuilder<FavoriteCubit, FavoriteState>(
             builder: (context, state) {
           final List<ImageDatum> imageData = state.favoriteImages;
@@ -45,7 +61,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         builder: (context, favSate) {
                       return InkWell(
                           onTap: () async {
-                            bool confirm = await showAlertDialog(context);
+                            bool confirm = await _showAlertDialog(context);
                             if (confirm) {
                               favoriteCubit.removeFromFav(imageDatum);
                             }
@@ -68,11 +84,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 title: Text(imageDatum.ownerName),
                                 subtitle:
                                     Text(imageDatum.imageSize.formatBytes()),
-                                trailing:
-                                    favSate.favoriteImages.contains(imageDatum)
-                                        ? Icon(Icons.favorite,
-                                            color: Colors.red.shade900)
-                                        : null,
+                                trailing: Icon(Icons.favorite,
+                                    color: Colors.red.shade900),
                                 contentPadding:
                                     const EdgeInsets.only(right: 10))
                           ]));
@@ -81,7 +94,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         }));
   }
 
-  Future<bool> showAlertDialog(BuildContext context) async {
+  Future<bool> _showAlertDialog(BuildContext context) async {
     Widget cancelButton = TextButton(
         child: const Text("Cancel"),
         onPressed: () => Navigator.of(context).pop());
