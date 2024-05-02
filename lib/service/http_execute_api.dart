@@ -16,13 +16,9 @@ class HttpExecuter {
   Future<String> finalApiExecution(HttpApiParams httpApiParams) async {
     Uri finalUrl;
     try {
-      if (httpApiParams.query != null &&
-          (httpApiParams.query?.isNotEmpty ?? false)) {
-        finalUrl = Uri.https(defaultServerConfig.server, httpApiParams.path,
-            httpApiParams.query);
-      } else {
-        finalUrl = Uri.https(defaultServerConfig.server, httpApiParams.path);
-      }
+      _setApiKey(httpApiParams);
+      finalUrl = Uri.https(
+          defaultServerConfig.server, httpApiParams.path, httpApiParams.query);
 
       HttpClientRequest httpClientRequest =
           await client.openUrl(httpApiParams.method!, finalUrl);
@@ -34,7 +30,7 @@ class HttpExecuter {
       HttpClientResponse httpClientResponse = await httpClientRequest.close();
       if (httpClientResponse.statusCode == 400 ||
           httpClientResponse.statusCode == 401) {
-        return "Something went wrong.";
+        throw "Something went wrong.";
       }
 
       final String responseString =
@@ -42,7 +38,11 @@ class HttpExecuter {
 
       return responseString;
     } catch (e) {
-      return e.toString();
+      throw e.toString();
     }
+  }
+
+  _setApiKey(HttpApiParams httpApiParams) {
+    httpApiParams.query?.addAll({'key': "43661498-ffa56af4d2575e5d3f0232aec"});
   }
 }

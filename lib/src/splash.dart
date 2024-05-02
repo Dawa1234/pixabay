@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:pixabay/infrastructure/endpoints.dart';
-import 'package:pixabay/infrastructure/repo/http_repo_impl.dart';
+import 'package:pixabay/config/routes/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,23 +8,31 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  late final AnimationController _animationController;
+  late final Animation<double> _animation;
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+
+    _animation =
+        CurvedAnimation(parent: _animationController, curve: Curves.easeOut);
+    _animationController.addListener(() => setState(() {}));
+    _animationController.forward().whenComplete(
+        () => Navigator.pushReplacementNamed(context, Routes.searchScreen));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
         body: Center(
-            child: InkWell(
-                onTap: () async {
-                  try {
-                    final data = await HttpRepoImpl().fetchApiData(
-                        path: UrlConst.SEARCH_IMAGE,
-                        query: {"key": "43661498-ffa56af4d2575e5d3f0232aeca"});
-                    log(data);
-                  } catch (e) {
-                    log(e.toString());
-                  }
-                },
-                child: const Text("SplashScreen"))));
+            child: AnimatedContainer(
+                duration: const Duration(seconds: 1),
+                height: _animation.value * 120,
+                width: _animation.value * 120,
+                child: Image.asset("assets/images/pixabay.png"))));
   }
 }

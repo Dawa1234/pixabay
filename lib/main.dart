@@ -1,16 +1,22 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixabay/config/routes/generated_route.dart';
 import 'package:pixabay/config/theme/theme.dart';
 import 'package:pixabay/service/http_execute_api.dart';
 import 'package:pixabay/service/server_config.dart';
+import 'package:pixabay/src/bloc/search_bloc/search_bloc.dart';
 
 void main() {
-  // runZonedGuarded(() {
-  // }, (error, stack) {
-  //   log(error.toString());
-  // });
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const AppWrapper());
+  runZonedGuarded(() {
+    WidgetsFlutterBinding.ensureInitialized();
+    runApp(const AppWrapper());
+  }, (error, stack) {
+    log(error.toString());
+  });
 }
 
 class AppWrapper extends StatefulWidget {
@@ -21,9 +27,7 @@ class AppWrapper extends StatefulWidget {
 }
 
 class _AppWrapperState extends State<AppWrapper> {
-  _bootServer() {
-    HttpExecuter.init(LiveServerConfig());
-  }
+  _bootServer() => HttpExecuter.init(LiveServerConfig());
 
   @override
   void initState() {
@@ -32,9 +36,12 @@ class _AppWrapperState extends State<AppWrapper> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: CustomThemeData.themeData(),
-        onGenerateRoute: GeneratedRoute.onGeneratedRoute);
+  Widget build(BuildContext ifcontext) {
+    return MultiBlocProvider(
+        providers: [BlocProvider(create: (context) => SearchBloc())],
+        child: MaterialApp(
+            theme: CustomThemeData.themeData(),
+            debugShowCheckedModeBanner: kDebugMode,
+            onGenerateRoute: GeneratedRoute.onGeneratedRoute));
   }
 }
