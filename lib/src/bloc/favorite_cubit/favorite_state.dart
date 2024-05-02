@@ -6,10 +6,10 @@ class FavoriteState {
 }
 
 class FavoriteImageLoading extends FavoriteState {
-  FavoriteImageLoading(super.favoriteImages);
+  const FavoriteImageLoading(super.favoriteImages);
 }
 
 class FavoriteImageUpdated extends FavoriteState {
   final List<ImageDatum> favImages;
-  FavoriteImageUpdated(this.favImages) : super(favImages);
+  const FavoriteImageUpdated(this.favImages) : super(favImages);
 }

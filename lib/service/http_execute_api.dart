@@ -11,7 +11,8 @@ class HttpExecuter {
     defaultServerConfig = serverConfig;
   }
 
-  HttpExecuter() : client = HttpClient();
+  HttpExecuter()
+      : client = HttpClient()..connectionTimeout = const Duration(seconds: 10);
 
   Future<String> finalApiExecution(HttpApiParams httpApiParams) async {
     Uri finalUrl;
@@ -37,6 +38,10 @@ class HttpExecuter {
           await httpClientResponse.transform(utf8.decoder).join();
 
       return responseString;
+    } on SocketException catch (e) {
+      throw e.message.toString();
+    } on HttpException catch (e) {
+      throw "Your internet may be slow. Please try again.";
     } catch (e) {
       throw e.toString();
     }

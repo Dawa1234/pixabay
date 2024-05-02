@@ -198,19 +198,17 @@ class _SearchScreenState extends State<SearchScreen>
               }
               if (state is SearchLoadError) {
                 return Center(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                      Text(state.errorMessage),
-                      InkWell(
-                          onTap: () {
-                            page = 1;
-                            searchBloc.add(SearchItems(
-                                query: searchController.text,
-                                page: page.toString()));
-                          },
-                          child: const Icon(Icons.replay_outlined))
-                    ]));
+                    child: Wrap(alignment: WrapAlignment.center, children: [
+                  Text(state.errorMessage),
+                  InkWell(
+                      onTap: () {
+                        page = 1;
+                        searchBloc.add(SearchItems(
+                            query: searchController.text,
+                            page: page.toString()));
+                      },
+                      child: const Icon(Icons.replay_outlined))
+                ]));
               }
               return const SizedBox.shrink();
             }));

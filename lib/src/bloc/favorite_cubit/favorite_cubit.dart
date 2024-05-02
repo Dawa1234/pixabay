@@ -7,7 +7,7 @@ import 'package:pixabay/src/data/models/image_model.dart';
 part 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
-  FavoriteCubit() : super(FavoriteImageLoading([]));
+  FavoriteCubit() : super(const FavoriteImageLoading([]));
 
   init() {
     final String presistedFavImage = SharedPref.getFavImages();
