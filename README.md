@@ -1,4 +1,4 @@
-# Weather_app
+# Pixabay
 ## App description
 
 The application overall contains 2 pages as task assigned (Search Screen / Favorite Screen). In addition, I added splash screen at first. Moreover,some of the packages are imported as per the needs for the development
@@ -13,8 +13,10 @@ The application overall contains 2 pages as task assigned (Search Screen / Favor
 For the state management, bloc has been implemented via package called flutter_bloc. Moreover, bloc pattern is followed as a design pattern. To achieve animations, I implemented hero animation. Finally, assigned tasks are implemented respectively on the application.
 
 # Application ScreenShots
-![Screenshot_1714660853](https://github.com/Dawa1234/pixabay/assets/78782368/6df48980-0df9-4312-9ced-4c0842a24f7d)
-![Screenshot_1714660871](https://github.com/Dawa1234/pixabay/assets/78782368/ebb86c62-df24-4605-acba-9e6658ccbe1e)
+<img width="336" alt="Screenshot 2024-05-02 at 20 29 30" src="https://github.com/Dawa1234/pixabay/assets/78782368/ae928008-40b2-4135-98d4-9913a7af51c3">
+<img width="334" alt="Screenshot 2024-05-02 at 20 29 40" src="https://github.com/Dawa1234/pixabay/assets/78782368/02271bea-22b4-4c86-ac28-364641423e86">
+
+
 
 ## Test Covered:
 - Unit Test: 2
