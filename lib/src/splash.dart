@@ -29,10 +29,13 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-            child: AnimatedContainer(
-                duration: const Duration(seconds: 1),
-                height: _animation.value * 120,
-                width: _animation.value * 120,
-                child: Image.asset("assets/images/pixabay.png"))));
+            child: Hero(
+      tag: "pixabay",
+      child: AnimatedContainer(
+          duration: const Duration(seconds: 1),
+          height: _animation.value * 120,
+          width: _animation.value * 120,
+          child: Image.asset("assets/images/pixabay.png")),
+    )));
   }
 }

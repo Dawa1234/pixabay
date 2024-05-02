@@ -5,6 +5,29 @@ class CustomThemeData {
   static const Color textColor = Colors.black87;
   static ThemeData themeData() {
     return ThemeData.light().copyWith(
+        appBarTheme: AppBarTheme(
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+                fontSize: 18,
+                fontFamily: fontFamily,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade900)),
+        textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+                shape: const BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(2))),
+                textStyle: TextStyle(
+                    fontSize: 12,
+                    fontFamily: fontFamily,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade900))),
+        dialogTheme: DialogTheme(
+            actionsPadding: const EdgeInsets.only(right: 10),
+            titleTextStyle: TextStyle(
+                fontSize: 12,
+                fontFamily: fontFamily,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade900)),
         inputDecorationTheme: const InputDecorationTheme(
             hintStyle: TextStyle(fontSize: 14, fontFamily: fontFamily)),
         textTheme: TextTheme(

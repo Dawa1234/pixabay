@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class ImageData {
   final List<ImageDatum> imageData;
   const ImageData({required this.imageData});
@@ -8,29 +10,33 @@ class ImageData {
           .toList());
 }
 
-class ImageDatum {
+class ImageDatum extends Equatable {
   final int id;
   final String image;
-  final int imageHeight;
-  final int imageWidth;
   final String ownerName;
   final int imageSize;
-  final bool? isFavorite;
 
   const ImageDatum(
       {required this.id,
       required this.image,
       required this.ownerName,
-      required this.imageSize,
-      required this.imageHeight,
-      required this.imageWidth,
-      this.isFavorite = false});
+      required this.imageSize});
 
   factory ImageDatum.fromJson(Map<String, dynamic> json) => ImageDatum(
       id: json['id'],
-      image: json['largeImageURL'], // webformatURL / largeImageURL
+      image: json['largeImageURL'],
       ownerName: json['user'],
-      imageSize: json['imageSize'],
-      imageHeight: json['previewHeight'],
-      imageWidth: json['previewWidth']);
+      imageSize: json['imageSize']);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'largeImageURL': image,
+      'user': ownerName,
+      'imageSize': imageSize
+    };
+  }
+
+  @override
+  List<Object?> get props => [id];
 }
