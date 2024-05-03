@@ -7,7 +7,7 @@ void main() {
   final FavoriteCubit favoriteCubit = FavoriteCubit();
 
   test("Test Favorite Bloc", () {
-    expect(favoriteCubit.state, const FavoriteImageLoading([]));
+    expect(favoriteCubit.state, FavoriteImageLoading([]));
   });
 
   blocTest<FavoriteCubit, FavoriteState>(
@@ -19,6 +19,6 @@ void main() {
       favoriteCubit.addToFav(dummyImageDatum);
     },
     wait: const Duration(milliseconds: 500),
-    expect: () => <FavoriteState>[const FavoriteImageUpdated([])],
+    expect: () => <FavoriteState>[FavoriteImageUpdated([])],
   );
 }

@@ -1,15 +1,15 @@
 part of 'favorite_cubit.dart';
 
 class FavoriteState {
-  final List<ImageDatum> favoriteImages;
-  const FavoriteState(this.favoriteImages);
+  List<ImageDatum> favoriteImages;
+  FavoriteState(this.favoriteImages);
 }
 
 class FavoriteImageLoading extends FavoriteState {
-  const FavoriteImageLoading(super.favoriteImages);
+  FavoriteImageLoading(super.favoriteImages);
 }
 
 class FavoriteImageUpdated extends FavoriteState {
-  final List<ImageDatum> favImages;
-  const FavoriteImageUpdated(this.favImages) : super(favImages);
+  List<ImageDatum> favImages;
+  FavoriteImageUpdated(this.favImages) : super(favImages);
 }
